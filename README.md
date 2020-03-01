@@ -1,1 +1,1 @@
-ByteArrayConvertor
+ByteArrayConverter

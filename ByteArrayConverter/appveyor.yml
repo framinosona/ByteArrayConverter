@@ -1,0 +1,52 @@
+# AppVeyor documentation https://www.appveyor.com/docs
+
+version: '{build}'
+
+image:
+- Ubuntu
+- Visual Studio 2019
+
+pull_requests:
+  # Do not increment build number for pull requests
+  do_not_increment_build_number: true
+
+nuget:
+  # Do not publish for pull requests
+  disable_publish_on_pr: true
+
+environment:
+  # Set the DOTNET_SKIP_FIRST_TIME_EXPERIENCE environment variable to stop wasting time caching packages
+  DOTNET_SKIP_FIRST_TIME_EXPERIENCE: true
+  # Disable sending usage data to Microsoft
+  DOTNET_CLI_TELEMETRY_OPTOUT: true
+
+build_script:
+# https://docs.microsoft.com/en-us/dotnet/core/tools/dotnet-install-script
+- pwsh: |
+    if ($isWindows) {
+      Invoke-WebRequest "https://dot.net/v1/dotnet-install.ps1" -OutFile "./dotnet-install.ps1"
+      ./dotnet-install.ps1 -JSonFile global.json
+    }
+    else {
+      Invoke-WebRequest "https://dot.net/v1/dotnet-install.sh" -OutFile "./dotnet-install.sh"
+      chmod u+x dotnet-install.sh
+      sudo ./dotnet-install.sh --jsonfile global.json --install-dir /usr/share/dotnet
+    }
+- pwsh: dotnet tool restore
+- pwsh: dotnet cake --target=Build
+- pwsh: dotnet cake --target=Test
+- pwsh: dotnet cake --target=Pack
+
+test: off
+
+artifacts:
+- name: NuGet Packages
+  path: ./Artefacts/**/*.nupkg
+- name: NuGet Symbol Packages
+  path: ./Artefacts/**/*.snupkg
+- name: xUnit XML Test Results
+  path: ./Artefacts/**/*.xml
+- name: xUnit HTML Test Results
+  path: ./Artefacts/**/*.html
+- name: Code Coverage
+  path: ./Artefacts/**/*.cobertura.xml
