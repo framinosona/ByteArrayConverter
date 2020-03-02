@@ -18,15 +18,15 @@
         <PackageLicenseExpression>MIT</PackageLicenseExpression>
         <PackageProjectUrl>https://github.com/framinosona/ByteArrayConverter</PackageProjectUrl>
         <PackageIcon>Icon.png</PackageIcon>
-        <RepositoryUrl>https://github.com/Username/Project.git</RepositoryUrl>
+        <RepositoryUrl>https://github.com/framinosona/ByteArrayConverter.git</RepositoryUrl>
         <RepositoryType>git</RepositoryType>
-        <PackageTags>Tag1;Tag2;Tag3</PackageTags>
-        <PackageReleaseNotes>https://github.com/Username/Project/releases</PackageReleaseNotes>
+        <PackageTags>Bit;Byte;Array;Converter</PackageTags>
+        <PackageReleaseNotes>https://github.com/framinosona/ByteArrayConverter/releases</PackageReleaseNotes>
     </PropertyGroup>
 
     <PropertyGroup Label="Signing">
         <SignAssembly>true</SignAssembly>
-        <AssemblyOriginatorKeyFile>../../Key.snk</AssemblyOriginatorKeyFile>
+        <AssemblyOriginatorKeyFile>../Key.snk</AssemblyOriginatorKeyFile>
     </PropertyGroup>
 
     <PropertyGroup Label="Source Link">
@@ -49,7 +49,7 @@
     </ItemGroup>
 
     <ItemGroup Label="Files">
-        <None Include="..\..\Images\Icon.png" Pack="true" PackagePath="\" />
+        <None Include="..\Images\Icon.png" Pack="true" PackagePath="\" />
     </ItemGroup>
 
 </Project>
